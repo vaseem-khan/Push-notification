@@ -1,0 +1,30 @@
+{% extends 'listing/base.html' %}
+
+{% block title %} Products {% endblock %}
+
+{% block body_block %}
+ 
+        <h1>Product listing page</h1>
+   
+
+    
+
+    {% if products %}
+        
+        {% for product in products %}
+        <!-- <div class="row-fluid"> -->
+            <div class="span6">
+                <a href="/listing/product/{{ product.url }}"><h4>{{ product.title }}</h4> </a>
+                <img src="media/{{product.image1}}" height="200" width="200"/> <br> 
+                Price : {{ product.price }}<br>
+                Date added: {{ product.time }}<br>Owner: {{ product.owner.user.username}}
+            </div>
+        <!-- </div> -->
+         
+        {% endfor %}
+   
+    {% else %}
+    <br>
+        <strong>There are no products present.</strong>
+    {% endif %}
+{% endblock %}

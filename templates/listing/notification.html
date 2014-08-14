@@ -1,0 +1,29 @@
+{% extends 'listing/base.html' %}
+
+{% block title %} Notifications {% endblock %}
+
+{% block body_block %}
+    <h1>Notifications: </h1>
+
+    {% if unread %}
+        <ul id='unread_notifs'>
+            {% for notification in unread %}
+                <li> <strong>{{notification.time}} : {{ notification.message }} </strong></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <strong>No new notifications.</strong>
+    {% endif %}
+
+    <br>
+
+    <ul>
+        {% for notification in viewed %}
+            <li>{{notification.time}} :  {{ notification.message }} </li>
+        {% endfor %}
+    </ul>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'listing/base.html' %}
+
+{% block title %} Edit Item {% endblock %}
+
+{% block body_block %}
+    <div class="hero-unit">
+        <h1>Edit this item</h1>
+        <br/>
+        <div class="container">
+            {% if mod %}
+                <strong>Your item is edited!</strong>
+                <a href="/listing/">Return to the homepage</a>
+                <strong>OR</strong>
+                <a href="/listing/mod_item/">Edit again</a>
+                <br />
+            {% else %}
+
+                <form class="span6" id="category_form" method="post" action="/listing/{{ id }}/mod_item/" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <br/>
+                    <button class="btn btn-primary" type="submit" name="submit">Edit Item</button>
+                    <a href="/listing/">Cancel</a>
+                </form>
+                
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}

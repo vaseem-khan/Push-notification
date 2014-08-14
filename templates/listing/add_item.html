@@ -1,0 +1,30 @@
+{% extends 'listing/base.html' %}
+
+{% block title %} Add Item {% endblock %}
+
+{% block body_block %}
+    <div class="hero-unit">
+        <h1>Add new item</h1>
+        <br/>
+        <div class="container">
+            {% if added %}
+                <strong>thank you for adding item!</strong>
+                <a href="/listing/">Return to the homepage</a>
+                <strong>OR</strong>
+                <a href="/listing/add_item/">Add another item</a>
+                <br />
+            {% else %}
+
+                <form class="span6" id="category_form" method="post" action="/listing/add_item/" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <br/>
+                    <button class="btn btn-primary" type="submit" name="submit">Add Item</button>
+                    <a href="/listing/">Cancel</a>
+                </form>
+                
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
