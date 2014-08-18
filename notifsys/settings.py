@@ -56,6 +56,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'listing',
+    'djcelery',
    
 )
 
@@ -108,3 +109,8 @@ STATICFILES_DIRS=(
 
 SESSION_ENGINE = 'user_sessions.backends.db'
 TEMPLATE_CONTEXT_PROCESSORS += ("django.core.context_processors.request",)
+
+import djcelery
+djcelery.setup_loader() 
+BROKER_URL = 'amqp://myuser:1234@localhost:5672//' 
+CELERY_IMPORTS = ('listing.task',)

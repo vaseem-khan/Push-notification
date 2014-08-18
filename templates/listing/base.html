@@ -11,7 +11,8 @@
 
         <title>{% block title %}{% endblock %}</title>
         <script src="{% static 'js/jquery-2.1.1.js' %}"></script>
-        <script src="http://localhost:8002/socket.io/socket.io.js"></script>
+        <!--<script src="http://localhost:8002/socket.io/socket.io.js"></script> -->
+        <script src="http://180.215.174.252:8002/socket.io/socket.io.js"></script> 
 
 
  <script>
@@ -36,7 +37,8 @@
     <script>
 
         $(document).ready(function() {
-            var socket = io.connect("localhost", {port: 8002});
+            // var socket = io.connect("localhost", {port: 8002});
+            var socket = io.connect("180.215.174.252", {port: 8002});
             socket.on('message', function(message) {
                 $( "#notifs" ).attr( "data-badge", function(i, val ) {
                 return (parseInt(val)+1).toString();
