@@ -3,6 +3,7 @@
 <html>
     <head>
         {% load static %}
+        {% load count_tags %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
         <link href="{% static 'css/bootstrap-fluid-adj.css' %}" rel="stylesheet">
@@ -11,8 +12,8 @@
 
         <title>{% block title %}{% endblock %}</title>
         <script src="{% static 'js/jquery-2.1.1.js' %}"></script>
-        <!--<script src="http://localhost:8002/socket.io/socket.io.js"></script> -->
-        <script src="http://180.215.174.252:8002/socket.io/socket.io.js"></script> 
+         <script src="http://{%ip_address%}:8002/socket.io/socket.io.js"></script>
+        <!-- // <script src="http://localhost:8002/socket.io/socket.io.js"></script> -->
 
 
  <script>
@@ -38,7 +39,7 @@
 
         $(document).ready(function() {
             // var socket = io.connect("localhost", {port: 8002});
-            var socket = io.connect("180.215.174.252", {port: 8002});
+            var socket = io.connect("{%ip_address%}", {port: 8002});
             socket.on('message', function(message) {
                 $( "#notifs" ).attr( "data-badge", function(i, val ) {
                 return (parseInt(val)+1).toString();
@@ -87,17 +88,17 @@
                     {% if user.is_authenticated %}
                         <a class="brand" href="/listing/add_item/">Add a New Item</a>
                     {% else %}
-                        <a class="brand" href="/listing/login/">Login to add item</a> 
+                        <a class="brand" href="/listing/login/">Login to add item</a>
                     {% endif %}
-                    
+
 
                    <div class="nav-collapse ">
                         <ul class="nav pull-right">
-                            
+
 
                             {% if user.is_authenticated %}
                               <span class="brand">hello {{ user.username }}!, </span><a class="brand" href="/listing/logout/">Logout</a>
-                            {% load count_tags %}
+
                             <button id="notifs" class="badge1" data-badge="{% notif_count %}" onclick="dis_notification()">Notifications</button>
                             {% else %}
                                 <a class="brand" href="/listing/register/">Register Here</a>
@@ -106,7 +107,7 @@
 
                         </ul>
                     </div>
-        
+
                 </div>
             </div>
         </div>
@@ -150,5 +151,5 @@
         location.href="/listing/notification";
     }
     </script>
-    
+
 </html>

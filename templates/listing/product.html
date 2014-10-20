@@ -5,24 +5,20 @@
 {% block body_block %}
 
         {% if product %}
-            <div class="hero-unit">
+            <div class="well sidebar-nav">
                 <h2>{{ product.title }}</h2> 
             </div>
 
             <div class="row-fluid">
-                <div class="span6">
-                    <img src="media/{{product.image1}}" height="250" width="250"/> 
-                </div><br>
-
-                <div>
-                    <img src="media/{{product.image2}}" height="250" width="250"/> 
-                </div><br>
-
-                <div>
-                    <img src="media/{{product.image3}}" height="250" width="250"/> 
-                </div><br>
+                <div class="span4">
+                    <img src="media/{{product.image1}}" height="250" width="250"/><hr> 
+                
+                    <img src="media/{{product.image2}}" height="250" width="250"/> <hr>
+                
+                    <img src="media/{{product.image3}}" height="250" width="250"/> <hr>
+                </div>
                         
-                <div class="span6">
+                <div class="span4">
                     Price : {{ product.price }}<br>
                     Description: {{ product.description }}<br>
                     <br>
@@ -45,27 +41,42 @@
 
                     {% if user.is_authenticated %}
                         {% if is_owner %}
-                            <h4>You are the owner. Hence, you can't shortlist or place order for this product.</h4>
+                            You are the owner. Hence, you can't shortlist or place order for this product.<br>
                             <br>
                             <a href="/listing/{{ product.id }}/mod_item">Edit Product Details</a>
                         {% else %}
                             
                             {% if has_shortlisted %}
-                                <h4>You have shortlisted this product.</h4>
+                                You have shortlisted this product.<br>
                             {% else %}
-                                <a href="/listing/product/{{ product.id }}/shortlist">Shortlist </a><br>
+                                <button id="short" onclick="short_func()">Shortlist </button><br>
                             {% endif %}
 
                             {% if has_placed %}
-                                <h4>You have placed order for this product.</h4>
+                                You have placed order for this product.<br>
                             {% else %}
-                                <a href="/listing/product/{{ product.id }}/place_order">Place Order </a>
+                                <button id="place" onclick="place_func()" >Place Order </button>
                             {% endif %}
 
                         {% endif %}
                     {% else %}
-                         <a href="/listing/login">Shortlist </a><br>
-                         <a href="/listing/login">Place Order </a>
+                         <a href="/listing/login">Login to Shortlist </a><br>
+                         <a href="/listing/login">Login to Place Order </a>
                     {% endif %}
+                </div>
         {% endif %} 
+        <script>
+            function short_func()
+            {
+                document.getElementById("short").disabled=true;
+                location.href="/listing/product/{{ product.id }}/shortlist";
+            }
+
+            function place_func()
+            {
+                document.getElementById("place").disabled=true;
+                location.href="/listing/product/{{ product.id }}/place_order";
+            }
+        </script>
+
 {% endblock %}
